@@ -35,19 +35,21 @@
       <!-- Search -->
 
       <!-- Navbar -->
-      <nav class="site-header__navbar navbar">
-        <ul class="navbar__nav">
-          <li class="navbar__item">
-            <a href="index.html" class="navbar__link">Home</a>
-          </li>
-          <li class="navbar__item">
-            <a href="index.html" class="navbar__link">Tutors</a>
-          </li>
-          <li class="navbar__item">
-            <a href="index.html" class="navbar__link">Contact</a>
-          </li>
-        </ul>
-      </nav>
+      <div class="navbar__wrapper">
+        <nav class="site-header__navbar navbar" id="main-navbar">
+          <ul class="navbar__nav">
+            <li class="navbar__item">
+              <a href="index.html" class="navbar__link">Home</a>
+            </li>
+            <li class="navbar__item">
+              <a href="index.html" class="navbar__link">Tutors</a>
+            </li>
+            <li class="navbar__item">
+              <a href="index.html" class="navbar__link">Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
       <!-- Navbar -->
 
       <!-- Mobile Actions -->
@@ -55,7 +57,7 @@
         <button class="btn-icon" id="btn-page-search">
           <i class="fa fa-search"></i>
         </button>
-        <button class="btn-icon">
+        <button class="btn-icon" id="toggle-navbar">
           <i class="fa fa-bars"></i>
         </button>
       </div>

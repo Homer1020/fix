@@ -1,16 +1,16 @@
+// Variables globales para ek buscador
 const pageSearch = document.getElementById('page-search');
 const btnPageSearch = document.getElementById('btn-page-search');
 
-// Overlay Global
-const globalOverlay = generateOverlay({
-  onClose: () => { pageSearch.parentElement.classList.remove('overlay__target'); },
-  btnToClose: true
-});
+
 
 function generateOverlay({
   closeOnClick = true,
   onClose = false,
-  btnToClose = false
+  btnToClose = false,
+  onInitClose = false,
+  bg = false,
+  btnToCloseExtraClasses = []
 }) {
   // Generamos el div del overlay
   const overlay = document.createElement('div');
@@ -19,15 +19,27 @@ function generateOverlay({
   // Añadimos las clases
   overlay.classList.add('overlay');
 
+  // Funcion cerrar el overlay
+  function closeOverlay() {
+    overlay.classList.add('hidden');
+    if(onInitClose) {
+      onInitClose();
+    }
+  }
+
   // Configuración extra
+  if(bg) {
+    overlay.style.backgroundColor = bg;
+  }
+
   if(btnToClose) {
     const btnClose = document.createElement('button');
-    btnClose.classList.add('btn-icon', 'overlay__close');
+    btnClose.classList.add('btn-icon', 'overlay__close', ...btnToCloseExtraClasses);
     btnClose.innerHTML = `
       <i class="fa fa-times"></i>
     `;
 
-    btnClose.addEventListener('click', () => { overlay.classList.add('hidden'); });
+    btnClose.addEventListener('click', closeOverlay);
 
     // Insertamos en la tercera columna del grid
     overlay.appendChild(btnClose);
@@ -46,7 +58,7 @@ function generateOverlay({
   if(closeOnClick) {
     overlay.addEventListener('click', e => {
       if(e.target.classList.contains('overlay')) {
-        overlay.classList.add('hidden');
+        closeOverlay();
       }
     });
   }
@@ -54,6 +66,16 @@ function generateOverlay({
   // Retornamos el overlay
   return overlay;
 }
+
+// Search Global
+const globalOverlay = generateOverlay({
+  onClose: () => {
+    if(pageSearch) {
+      pageSearch.parentElement.classList.remove('overlay__target');
+    }
+  },
+  btnToClose: true
+});
 
 function overlaySearch(e) {
   // Comprobamos que no halla overlay
@@ -85,4 +107,33 @@ if(pageSearch) {
     btnPageSearch.addEventListener('click', overlaySearchMobile);
   }
 
+}
+
+// Variables globales para el toggleNavigation
+const btnToggleNavbar = document.getElementById('toggle-navbar');
+const mainNavbar = document.getElementById('main-navbar');
+
+// Overlay del navbar
+const navbarOverlay = generateOverlay({
+  onInitClose: () => {
+    if(mainNavbar) {
+      mainNavbar.classList.remove('show');
+    }
+  },
+  btnToClose: true,
+  bg: 'rgba(34, 34, 34, .9)',
+  btnToCloseExtraClasses: ['overlay__close--left']
+});
+
+function toggleNavbar(e) {
+  mainNavbar.classList.add('show');
+  if(mainNavbar.classList.contains('show')) {
+    document.body.appendChild(navbarOverlay);
+  }else {
+
+  }
+}
+
+if(btnToggleNavbar) {
+  btnToggleNavbar.addEventListener('click', toggleNavbar);
 }
