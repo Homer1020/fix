@@ -137,3 +137,30 @@ function toggleNavbar(e) {
 if(btnToggleNavbar) {
   btnToggleNavbar.addEventListener('click', toggleNavbar);
 }
+
+// SLICK SLIDER
+$(document).ready(function(){
+  $('.your-class').slick({
+    dots: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 1
+        }
+      },
+    ],
+    nextArrow: `
+      <button type="button" class="btn-icon right">
+        <i class="fa fa-angle-right"></i>
+      </button>
+    `,
+    prevArrow: `
+      <button type="button" class="btn-icon left">
+        <i class="fa fa-angle-left"></i>
+      </button>
+    `
+  });
+});
