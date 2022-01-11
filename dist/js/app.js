@@ -140,7 +140,7 @@ if(btnToggleNavbar) {
 
 // SLICK SLIDER
 $(document).ready(function(){
-  $('.your-class').slick({
+  $('.features').slick({
     dots: true,
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -148,7 +148,10 @@ $(document).ready(function(){
       {
         breakpoint: 992,
         settings: {
-          slidesToShow: 1
+          slidesToShow: 1,
+          dots: false,
+          arrows: false,
+          centerMode: true
         }
       },
     ],
