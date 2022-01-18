@@ -1,8 +1,8 @@
 // Variables globales para ek buscador
 const pageSearch = document.getElementById('page-search');
 const btnPageSearch = document.getElementById('btn-page-search');
-
-
+const siteHeader = document.querySelector('.site-header');
+const siteHeaderHeight = siteHeader.getBoundingClientRect().height
 
 function generateOverlay({
   closeOnClick = true,
@@ -74,6 +74,10 @@ const globalOverlay = generateOverlay({
       pageSearch.parentElement.classList.remove('overlay__target');
     }
   },
+  onInitClose: () => {
+    document.body.style.overflow = '';
+    if(siteHeader) { setSticky() }
+  },
   btnToClose: true
 });
 
@@ -82,6 +86,9 @@ function overlaySearch(e) {
   if(!document.querySelector('.overlay')) {
     // Insertamos el overlay Global en el documento
     document.body.appendChild(globalOverlay);
+    document.body.style.overflow = 'hidden';
+    if(siteHeader) { siteHeader.classList.remove('fixed') }
+    window.scrollTo({top: 0, behavior: 'smooth'})
 
     // Añadimos la clase para que se active el elemento
     pageSearch.parentElement.classList.add('overlay__target');
@@ -119,6 +126,8 @@ const navbarOverlay = generateOverlay({
     if(mainNavbar) {
       mainNavbar.classList.remove('show');
     }
+    document.body.style.overflow = '';
+    if(siteHeader) { setSticky() }
   },
   btnToClose: true,
   bg: 'rgba(34, 34, 34, .9)',
@@ -129,8 +138,8 @@ function toggleNavbar(e) {
   mainNavbar.classList.add('show');
   if(mainNavbar.classList.contains('show')) {
     document.body.appendChild(navbarOverlay);
-  }else {
-
+    document.body.style.overflow = 'hidden';
+    if(siteHeader) { siteHeader.classList.remove('fixed') }
   }
 }
 
@@ -169,3 +178,20 @@ $(document).ready(function(){
     `
   });
 });
+
+// Sticky Header
+function setSticky() {
+  if(window.scrollY > siteHeaderHeight + 50) {
+    siteHeader.classList.add('fixed', 'shadow');
+    document.body.style.paddingTop = siteHeaderHeight + 'px';
+  }else {
+    siteHeader.classList.remove('fixed', 'shadow');
+    document.body.style.paddingTop = '';
+  }
+}
+
+if(siteHeader) {
+
+  window.addEventListener('scroll', setSticky);
+
+}
