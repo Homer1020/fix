@@ -76,24 +76,12 @@ const globalOverlay = generateOverlay({
   },
   onInitClose: () => {
     document.body.style.overflow = '';
-    if(siteHeader) { setSticky() }
+    // if(siteHeader) { setSticky() }
+    siteHeader.querySelector('.site-header__search').appendChild(pageSearch.parentElement);
+    document.body.style.overflow = '';
   },
   btnToClose: true
 });
-
-function overlaySearch(e) {
-  // Comprobamos que no halla overlay
-  if(!document.querySelector('.overlay')) {
-    // Insertamos el overlay Global en el documento
-    document.body.appendChild(globalOverlay);
-    document.body.style.overflow = 'hidden';
-    if(siteHeader) { siteHeader.classList.remove('fixed') }
-    window.scrollTo({top: 0})
-
-    // Añadimos la clase para que se active el elemento
-    pageSearch.parentElement.classList.add('overlay__target');
-  }
-}
 
 function overlaySearchMobile(e) {
   // Comprobamos que no halla overlay
@@ -103,14 +91,14 @@ function overlaySearchMobile(e) {
 
     // Insertamos el overlay Global en el documento
     document.body.appendChild(globalOverlay);
+    document.body.style.overflow = 'hidden';
   }
 }
 
 if(pageSearch) {
 
   if(matchMedia('(min-width: 768px)').matches) {
-    pageSearch.addEventListener('click', overlaySearch);
-  }else {
+    pageSearch.addEventListener('click', overlaySearchMobile);
     btnPageSearch.addEventListener('click', overlaySearchMobile);
   }
 
@@ -189,6 +177,8 @@ function setSticky() {
     document.body.style.paddingTop = '';
   }
 }
+
+setSticky();
 
 if(siteHeader) {
 
