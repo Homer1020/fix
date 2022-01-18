@@ -88,7 +88,7 @@ function overlaySearch(e) {
     document.body.appendChild(globalOverlay);
     document.body.style.overflow = 'hidden';
     if(siteHeader) { siteHeader.classList.remove('fixed') }
-    window.scrollTo({top: 0, behavior: 'smooth'})
+    window.scrollTo({top: 0})
 
     // Añadimos la clase para que se active el elemento
     pageSearch.parentElement.classList.add('overlay__target');
