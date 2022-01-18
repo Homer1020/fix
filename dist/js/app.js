@@ -100,6 +100,7 @@ if(pageSearch) {
 
   if(matchMedia('(min-width: 768px)').matches) {
     pageSearch.addEventListener('click', overlaySearchMobile);
+  }else {
     btnPageSearch.addEventListener('click', overlaySearchMobile);
   }
 
