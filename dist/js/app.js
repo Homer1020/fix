@@ -88,6 +88,7 @@ function overlaySearchMobile(e) {
   if(!document.querySelector('.overlay')) {
     // Añadimos page Search a overlay Mobil
     globalOverlay.querySelector('.overlay__content').appendChild(pageSearch.parentElement);
+    pageSearch.setAttribute('autofocus', true)
 
     // Insertamos el overlay Global en el documento
     document.body.appendChild(globalOverlay);
